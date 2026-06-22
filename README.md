@@ -15,6 +15,8 @@ Start Redis locally with Docker:
 docker run --rm -p 6379:6379 redis:7-alpine
 ```
 
+Before starting, fork this repository and clone your fork locally.
+
 ## Setup
 
 ```bash
