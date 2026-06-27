@@ -60,14 +60,6 @@ bun run test:perf
 
 The k6 script writes its summary to `packages/testing/dist/perf-results.json`.
 
-## Intentional Assessment Traps
-
-This repository intentionally preserves three defects for SDET assessment purposes:
-
-1. `apps/web/e2e/leaderboard.spec.ts` submits a quiz and immediately asserts static leaderboard text without resilient polling. The worker waits 1500ms, so this Playwright test is intentionally flaky or failing in automated contexts.
-2. `packages/workers/src/processor.ts` intentionally has a lost-update race. It reads a player's current total, adds the new score, and writes the value back with no transaction, lock, atomic increment, or `SELECT FOR UPDATE` equivalent. Worker concurrency is set to 8.
-3. `turbo.json` intentionally misconfigures `test:perf` caching. It caches `packages/testing/dist/perf-results.json` via the package-relative `dist/perf-results.json` output but only includes `package.json` as an input, so changes to the k6 scripts do not invalidate the cache.
-
 ## API
 
 Submit a quiz:
